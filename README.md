@@ -3,9 +3,10 @@
 The main objective in this project was to learn how to create an application that sends(Produce) and receives(Consume) a message from Kafka, using Docker and docker-compose tools.
 
 > Let's start with What is Kafka :
+
 Kafka is a distributed message streaming platform that uses publish and subscribe mechanism to stream the records.
 
-# the role of Kafka in a microservices architecture.
+# The role of Kafka in a microservices architecture.
 
 Kafka plays a crucial role in a microservices architecture as it provides a scalable and fault-tolerant messaging system that enables communication between different services. It serves as a distributed streaming platform, allowing the exchange of real-time data streams and event-driven communication among microservices.
 
@@ -48,12 +49,14 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 # Requirement:
 
 1. Docker
-2. Kafka-python
+2. Kafka-python (pip3 install kafka-python)
 3. Python 3.8
 
 # How to use
 You will need Docker installed to follow the next steps
-## Using Docker Compose
+
+# Using Docker Compose
+
 # first look at the docker-compose.yml file
 - This is a docker-compose file for running ZooKeeper and Kafka using the wurstmeister images.
 - The ZooKeeper service is defined with the image "wurstmeister/zookeeper". It has a container name of "zookeeper" and is exposing port 2181 to the host machine.
@@ -62,47 +65,60 @@ This configuration allows you to run a Kafka cluster with a single ZooKeeper nod
 
 # Next
 you find a .sh file in the root directory, in which i'll write a command
+
 > docker-compose -f docker-compose.yml up --remove-orphans --build -d
+
 so just go to Terminal  and run this sh file using the below command
+
 > sudo sh local_env_up.sh
+
 The configuration will create a cluster with 2 containers whose image name is :
 - kafka_server
 - zookeeper
 
-To stop/kill these container, you can simply write a command 
+To stop/kill these container, you can simply write a command. 
+
 > sudo sh local_env_down.sh
 
 - Now we can check that our both container is running or not with the help of this command
+
 > sudo docker ps
 
 - if they are running then copy the container_id of kafka_server, then execute the following command to enter a container
+
 > sudo docker exec -it <container_id> /bin/sh
+
 then
+
 > cd ./opt	
 > cd kafka
 
 # now we create Topics, with the following command
+
 > ./bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic my-topic-rk
 
 This command creates a topic named "test-topic-rk" with a replication factor of 1 and a single partition.
 
 Let's check that, our topic is created or  not, with this command
+
 > ./bin/kafka-topics.sh --list --zookeeper zookeeper:2181
 
 Great....
 now exit from the container, using command
+
 > exit
 
 # Let's start our Producer and Consumer 
+
 > cd python
+
 > python3 producer.py
+
 now open another terminal and run
+
 > python3 consumer.py
 
 we can see producer produce the messages and on consumer terminal window, we can see that it consumes the messages
-
-
-
 
 That's it! You have now installed and configured Kafka on your local machine. You can explore more advanced Kafka configurations and features based on your specific use case.
 
