@@ -10,5 +10,9 @@ RUN pip install -r requirements.txt
 COPY app/producer.py .
 COPY app/consumer.py .
 COPY app/main.py .
-
-CMD [ "python", "main.py" ]
+# RUN sudo docker exec -it kafka_server /bin/sh
+# RUN cd ./opt 
+# RUN cd kafka
+# RUN ./bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic my-topic-rk 
+# RUN exit
+# CMD [ "python", "producer.py", "&&", "python", "consumer.py" ]
