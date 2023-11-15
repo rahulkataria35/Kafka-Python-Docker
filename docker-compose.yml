@@ -16,6 +16,36 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    # command: bash -c "echo 'Executing commands...'; \
+    #                   sudo docker exec -it kafka_server /bin/sh; \
+    #                   cd ./opt; \
+    #                   cd kafka; \
+    #                   ./bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic my-topic-rk; \
+    #                   exit"
+    
+    
+  producer_consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: producer_consumer:latest
+    
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://127.0.0.1:5000/status"
+        ]
+      interval: "30s"
+      timeout: "150s"
+      retries: 3
+    container_name: "producer_consumer"
+
+    ports:
+      - "9044:80"
+    working_dir: /app
       
 
   # producer:

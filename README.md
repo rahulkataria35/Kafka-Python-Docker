@@ -50,7 +50,7 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 
 1. Docker
 2. Kafka-python (pip3 install kafka-python)
-3. Python 3.8
+3. Python 3.9
 
 # How to use
 You will need Docker installed to follow the next steps
