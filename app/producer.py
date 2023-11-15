@@ -3,6 +3,14 @@ from datetime import datetime
 from time import sleep
 from random import choice
 from kafka import KafkaProducer
+from database import extract_data, create_connection
+
+# Main program
+conn = create_connection()
+
+# Extract data from the database and convert to JSON
+database_data = json.loads(extract_data(conn))
+print("database_data==", type(database_data))
 
 kafka_server = ["localhost:9092"]
 topic = "my-topic-rk"
@@ -17,25 +25,15 @@ def get_producer_connection():
     except Exception as e:
         print("error_in producer :", e)
         return False, None
-    
-
 
 
 def produce_messages(producer):
     while True:
-        random_values = [1, 2, 3, 4, 5, 6, 7]
-        random_value = choice(random_values)
-        data = {
-            "test_data": {
-                "random_value": random_value
-            },
-            "timestamp": str(datetime.now()),
-            "value_status": "High" if random_value > 5 else "Low"
-        }
-        print(data)
-        producer.send(topic, data)
-        producer.flush()
-        sleep(3)
+        for data in database_data:
+            print(data)
+            producer.send(topic, data)
+            producer.flush()
+            sleep(3)
 
 
 print("Connecting with Kafka_Producer")

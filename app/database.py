@@ -50,9 +50,9 @@ insert_record(conn, record1)
 insert_record(conn, record2)
 
 # Extract data from the database and convert to JSON
-data = extract_data(conn)
+# data = extract_data(conn)
 # json_data = convert_to_json(data)
-print(data)
+# print(data)
 
 # Close the database connection
 conn.close()
