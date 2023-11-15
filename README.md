@@ -2,10 +2,10 @@
 
 The main objective in this project was to learn how to create an application that sends(Produce) and receives(Consume) a message from Kafka, using Docker and docker-compose tools.
 
-<!-- Let's start with What is Kafka : -->
+> Let's start with What is Kafka :
 Kafka is a distributed message streaming platform that uses publish and subscribe mechanism to stream the records.
 
-<!-- the role of Kafka in a microservices architecture. -->
+# the role of Kafka in a microservices architecture.
 
 Kafka plays a crucial role in a microservices architecture as it provides a scalable and fault-tolerant messaging system that enables communication between different services. It serves as a distributed streaming platform, allowing the exchange of real-time data streams and event-driven communication among microservices.
 
@@ -41,43 +41,68 @@ Overall, Kafka acts as a flexible and scalable backbone for microservices archit
 
 In a typical setup, producers publish messages to Kafka topics by sending them to Kafka brokers. Brokers store the messages in their assigned partitions and replicate them across the cluster. Consumers subscribe to specific topics and partitions, read messages from the brokers, and process them as needed. ZooKeeper is used to maintain the cluster state and facilitate coordination between the brokers. Overall, Kafka provides a fault-tolerant, distributed, and scalable messaging system for handling high-throughput, real-time data streams.
 
-<!-- Kafka Setup and Configuration: -->
+# Kafka Setup and Configuration:
 
 Installing and configuring Kafka on a local machine involves several steps. Here is a step-by-step guide for installing and configuring Kafka:
 
-1. **Download Kafka**: Start by downloading the Kafka distribution from the Apache Kafka website. Choose a stable release version that is compatible with your operating system.
+# Requirement:
 
-2. **Extract the Kafka archive**: Once the download is complete, extract the contents of the archive to your preferred location on your local machine. This will create a Kafka directory.
+1. Docker
+2. Kafka-python
+3. Python 3.8
 
-3. **Set environment variables**: To make it easier to run Kafka commands from any directory, you can set up environment variables. Add the Kafka bin directory path to the PATH environment variable.
+# How to use
+You will need Docker installed to follow the next steps
+## Using Docker Compose
+# first look at the docker-compose.yml file
+- This is a docker-compose file for running ZooKeeper and Kafka using the wurstmeister images.
+- The ZooKeeper service is defined with the image "wurstmeister/zookeeper". It has a container name of "zookeeper" and is exposing port 2181 to the host machine.
+- The Kafka service is defined with the image "wurstmeister/kafka". It has a container name of "kafka_server" and is exposing port 9092 to the host machine. Additionally, port 9093 is also exposed within the container. The environment variables "KAFKA_ADVERTISED_HOST_NAME" is set to "localhost" and "KAFKA_ZOOKEEPER_CONNECT" is set to "zookeeper:2181".
+This configuration allows you to run a Kafka cluster with a single ZooKeeper node using Docker.
 
-4. **Configure ZooKeeper**: Kafka relies on ZooKeeper for cluster coordination. Open the Kafka config directory, located in the extracted Kafka directory, and find the *zookeeper.properties* file. Edit this file if necessary to specify the ZooKeeper connection details such as the host and port.
+# Next
+you find a .sh file in the root directory, in which i'll write a command
+> docker-compose -f docker-compose.yml up --remove-orphans --build -d
+so just go to Terminal  and run this sh file using the below command
+> sudo sh local_env_up.sh
+The configuration will create a cluster with 2 containers whose image name is :
+- kafka_server
+- zookeeper
 
-5. **Start ZooKeeper**: Open a new terminal window and navigate to the Kafka directory. Start ZooKeeper by running the following command:
+To stop/kill these container, you can simply write a command 
+> sudo sh local_env_down.sh
 
->>> bin/zookeeper-server-start.sh config/zookeeper.properties
+- Now we can check that our both container is running or not with the help of this command
+> sudo docker ps
 
-6. **Configure Kafka**: Open the Kafka config directory and find the server.properties file. Edit this file to configure Kafka by specifying various properties such as broker ID, listeners, log directories, etc. Customize these properties according to your requirements.
+- if they are running then copy the container_id of kafka_server, then execute the following command to enter a container
+> sudo docker exec -it <container_id> /bin/sh
+then
+> cd ./opt	
+> cd kafka
 
-7. **Start Kafka brokers**: Open a new terminal window and navigate to the Kafka directory. Start the Kafka brokers by running the following command:
+# now we create Topics, with the following command
+> ./bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic my-topic-rk
 
->>> bin/kafka-server-start.sh config/server.properties
+This command creates a topic named "test-topic-rk" with a replication factor of 1 and a single partition.
 
-8. **Create topics**: Kafka uses topics to organize and store the data. You can create topics by running the following command:
+Let's check that, our topic is created or  not, with this command
+> ./bin/kafka-topics.sh --list --zookeeper zookeeper:2181
 
->>> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test-topic
+Great....
+now exit from the container, using command
+> exit
 
-This command creates a topic named "test-topic" with a replication factor of 1 and a single partition.
+# Let's start our Producer and Consumer 
+> cd python
+> python3 producer.py
+now open another terminal and run
+> python3 consumer.py
 
-9. **Produce and consume messages**: You can now start producing and consuming messages to test your Kafka installation. Open separate terminal windows, navigate to the Kafka directory, and use the following commands:
+we can see producer produce the messages and on consumer terminal window, we can see that it consumes the messages
 
-To produce messages to a topic:
->>> bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-topic
 
-To consume messages from a topic:
->>>  bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test-topic --from-beginning
 
-This command consumes all messages from the beginning of the topic.
 
 That's it! You have now installed and configured Kafka on your local machine. You can explore more advanced Kafka configurations and features based on your specific use case.
 
