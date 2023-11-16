@@ -48,14 +48,16 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 
 # Requirement:
 
+- You will need to install the following to follow the next steps.
+
 1. Docker
-2. Kafka-python (pip3 install kafka-python)
-3. Python 3.9
+2. Python 3.9
+3. java > 8
 
-# How to use
-You will need Docker installed to follow the next steps
+# Run the command in the directory
 
-# Using Docker Compose
+> pip3 install -r requirements.txt
+
 
 # first look at the docker-compose.yml file
 - This is a docker-compose file for running ZooKeeper and Kafka using the wurstmeister images.
@@ -64,34 +66,34 @@ You will need Docker installed to follow the next steps
 This configuration allows you to run a Kafka cluster with a single ZooKeeper node using Docker.
 
 # Next
-you find a .sh file in the root directory, in which i'll write a command
+you find a server_up.sh file in the root directory, in which i'll write this command
 
 > docker-compose -f docker-compose.yml up --remove-orphans --build -d
 
-so just go to Terminal  and run this sh file using the below command
+so just go to Terminal  and run this .sh file using the below command
 
-> sudo sh local_env_up.sh
+> sudo sh server_up.sh
 
 The configuration will create a cluster with 2 containers whose image name is :
-- kafka_server
+
 - zookeeper
+- kafka_server
 
 To stop/kill these container, you can simply write a command. 
 
-> sudo sh local_env_down.sh
+> sudo sh server_down.sh
 
 - Now we can check that our both container is running or not with the help of this command
 
-> sudo docker ps
+> sudo docker ps 
 
 - if they are running then copy the container_id of kafka_server, then execute the following command to enter a container
 
 > sudo docker exec -it <container_id> /bin/sh
 
-then
+then go to
 
-> cd ./opt	
-> cd kafka
+> cd ./opt/kafka	
 
 # now we create Topics, with the following command
 
@@ -110,7 +112,7 @@ now exit from the container, using command
 
 # Let's start our Producer and Consumer 
 
-> cd python
+> cd app
 
 > python3 producer.py
 
@@ -118,7 +120,7 @@ now open another terminal and run
 
 > python3 consumer.py
 
-we can see producer produce the messages and on consumer terminal window, we can see that it consumes the messages
+we can see producer produce the messages from the dummy database and on the consumer terminal window, we can see that it consumes the messages from the Producer and then we insert the records into the Database.
 
 That's it! You have now installed and configured Kafka on your local machine. You can explore more advanced Kafka configurations and features based on your specific use case.
 
