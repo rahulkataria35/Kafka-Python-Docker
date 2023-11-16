@@ -5,7 +5,7 @@ from random import choice
 from kafka import KafkaProducer
 from database import extract_data, create_connection
 
-# Main program
+#create db connection
 conn = create_connection()
 
 # Extract data from the database and convert to JSON

@@ -1,6 +1,10 @@
 import json
 import datetime, time
 from kafka import KafkaConsumer
+from database import insert_record, create_connection
+
+#create db connection
+conn = create_connection()
 
 kafka_topic = "my-topic-rk"
 kafka_connection = "localhost:9092"
@@ -27,10 +31,17 @@ def consume_messages(consumer):
             for message in partition_batch:
                 try:
                     # print(message.value)
-                    output = message.value  
-                    print("output===========", output)
+                    output = json.loads(message.value) 
+                    data = (output['name'], output['age']) 
+                    print("output===========", data)
+                    # try  to insert records into db
+                    try:
+                        insert_record(conn, data)
+                    except Exception as e:
+                        print("Error:", e)
+                        pass
                 except Exception as ex:
-                    print(ex)
+                    print("Error____", ex)
            
 
 
