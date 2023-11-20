@@ -1,9 +1,7 @@
 FROM python:3.9
 
 LABEL maintainer="Rahul Kataria <rahulkataria3355@gmail.com>"
-
 # RUN apt-get update && apt-get install -y default-jre
-
 COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
 RUN pip install --upgrade pip

@@ -49,16 +49,9 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 
 # Requirement:
 
-- You will need to install the following package in your system to follow the next steps.
+> You will need to install the following package in your system to follow the next steps.
 
-1. Docker
-2. Python 3.9
-3. java > 8
-4. pip
-
-# Run the command in the directory
-
-> pip3 install -r requirements.txt
+- Docker
 
 
 # first look at the docker-compose.yml file
@@ -68,15 +61,16 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 This configuration allows you to run a Kafka cluster with a single ZooKeeper node using Docker.
 
 # Next
-you find a server_up.sh file in the root directory, in which i'll write this command
+> In the root directory, you'll see a file called server_up.sh, where I'll write this command.
 
-> docker-compose -f docker-compose.yml up --remove-orphans --build -d
+
+- docker-compose -f docker-compose.yml up --remove-orphans --build -d
 
 so just go to Terminal  and run this .sh file using the below command
 
-- I'm writing the commands with sudo because I'm running Ubuntu on my system. You don't need sudo to write it.
+>I'm writing the commands with sudo because I'm running Ubuntu on my system. You don't need sudo to write it.
 
-> sudo sh server_up.sh
+- sudo sh server_up.sh
 
 The configuration will create a cluster with 4 containers whose image name is :
 
