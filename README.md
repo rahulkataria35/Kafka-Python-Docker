@@ -13,33 +13,33 @@ Kafka plays a crucial role in a microservices architecture as it provides a scal
 
 # Here are the main roles of Kafka in a microservices architecture:
 
-1. **Event Sourcing and CQRS**: Kafka acts as a log-based message queue where microservices can publish events and other services can consume those events. This facilitates implementing Event Sourcing, a pattern that stores all changes as a sequence of events. It also supports Command Query Responsibility Segregation (CQRS), where commands and queries are separated, enhancing scalability and flexibility.
+1. **`Event Sourcing and CQRS`**: Kafka acts as a log-based message queue where microservices can publish events and other services can consume those events. This facilitates implementing Event Sourcing, a pattern that stores all changes as a sequence of events. It also supports Command Query Responsibility Segregation (CQRS), where commands and queries are separated, enhancing scalability and flexibility.
 
-2. **Decoupling and Asynchronous Communication**: Kafka enables asynchronous communication between microservices by providing a durable, reliable, and distributed messaging system. Services can produce messages to Kafka topics without having to worry about the immediate consumer availability. This decouples services, allowing them to evolve independently and providing scalability and fault tolerance.
+2. **`Decoupling and Asynchronous Communication`**: Kafka enables asynchronous communication between microservices by providing a durable, reliable, and distributed messaging system. Services can produce messages to Kafka topics without having to worry about the immediate consumer availability. This decouples services, allowing them to evolve independently and providing scalability and fault tolerance.
 
-3. **Real-time Data Processing**: Kafka allows microservices to process real-time streams of data efficiently. Microservices can subscribe to relevant topics and consume data as soon as it becomes available, enabling real-time analytics, monitoring, and other data-driven capabilities.
+3. **`Real-time Data Processing`**: Kafka allows microservices to process real-time streams of data efficiently. Microservices can subscribe to relevant topics and consume data as soon as it becomes available, enabling real-time analytics, monitoring, and other data-driven capabilities.
 
-4. **Fault Tolerance and Scalability**: Kafka provides fault tolerance by replicating messages across multiple brokers, thereby preventing data loss in case of failures. It also allows horizontal scalability by enabling the addition of new brokers to handle increased message throughput. This makes it suitable for highly available and scalable microservices deployments.
+4. **`Fault Tolerance and Scalability`**: Kafka provides fault tolerance by replicating messages across multiple brokers, thereby preventing data loss in case of failures. It also allows horizontal scalability by enabling the addition of new brokers to handle increased message throughput. This makes it suitable for highly available and scalable microservices deployments.
 
-5. **Service Integration**: Microservices often need to integrate with various external systems, and Kafka serves as a central data hub that connects services with external systems. Services can consume and produce data from/to Kafka topics, allowing seamless integration with other systems.
+5. **`Service Integration`**: Microservices often need to integrate with various external systems, and Kafka serves as a central data hub that connects services with external systems. Services can consume and produce data from/to Kafka topics, allowing seamless integration with other systems.
 
 Overall, Kafka acts as a flexible and scalable backbone for microservices architecture, facilitating effective inter-service communication, decoupling, event sourcing, real-time data processing, and integration with external systems. It enables a distributed, fault-tolerant, and scalable microservices ecosystem.
 
 # Let's understand the key components of Kafka:
 
-1. **Topics**: It is a category or feed name to which messages are published. Topics are divided into partitions for scalability and performance.
+1. **`Topics`**: It is a category or feed name to which messages are published. Topics are divided into partitions for scalability and performance.
 
-2. **Producers**: Producers are responsible for publishing messages to Kafka topics. They can be any application or system that generates data.
+2. **`Producers`**: Producers are responsible for publishing messages to Kafka topics. They can be any application or system that generates data.
 
-3. **Consumers**: Consumers read data from Kafka topics. They can be any application or system that processes or analyzes the data.
+3. **`Consumers`**: Consumers read data from Kafka topics. They can be any application or system that processes or analyzes the data.
 
-4. **Brokers**: Kafka brokers are the nodes that form the Kafka cluster. They handle the storage and replication of data across the cluster. Each broker contains one or more topic partitions.
+4. **`Brokers`**: Kafka brokers are the nodes that form the Kafka cluster. They handle the storage and replication of data across the cluster. Each broker contains one or more topic partitions.
 
-5. **Partitions**: Topics are divided into partitions for scalability and parallelism. Each partition is an ordered, immutable sequence of messages. Each message within a partition is assigned a unique offset.
+5. **`Partitions`**: Topics are divided into partitions for scalability and parallelism. Each partition is an ordered, immutable sequence of messages. Each message within a partition is assigned a unique offset.
 
-6. **Replication**: Kafka uses replication to provide fault tolerance and data durability. Each topic can have multiple replicas across different brokers, ensuring data availability in the event of a broker failure.
+6. **`Replication`**: Kafka uses replication to provide fault tolerance and data durability. Each topic can have multiple replicas across different brokers, ensuring data availability in the event of a broker failure.
 
-7. **ZooKeeper**: Kafka relies on ZooKeeper for coordinating and managing the brokers in a cluster. ZooKeeper helps with leader election, notification of changes, and maintaining cluster metadata.
+7. **`ZooKeeper`**: Kafka relies on ZooKeeper for coordinating and managing the brokers in a cluster. ZooKeeper helps with leader election, notification of changes, and maintaining cluster metadata.
 
 In a typical setup, producers publish messages to Kafka topics by sending them to Kafka brokers. Brokers store the messages in their assigned partitions and replicate them across the cluster. Consumers subscribe to specific topics and partitions, read messages from the brokers, and process them as needed. ZooKeeper is used to maintain the cluster state and facilitate coordination between the brokers. Overall, Kafka provides a fault-tolerant, distributed, and scalable messaging system for handling high-throughput, real-time data streams.
 
