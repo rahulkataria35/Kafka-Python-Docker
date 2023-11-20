@@ -82,6 +82,7 @@ This Docker Compose file is used to define and run multiple services and contain
   - `container_name`: Sets the name of the containers.
   - `ports`: Maps the host machine's ports to the container's ports, allowing access to the services.
 
+
 Note that this Docker Compose file assumes the presence of Docker images for ZooKeeper and Kafka (`wurstmeister/zookeeper` and `wurstmeister/kafka`, respectively) and Dockerfiles for the `producer` and `consumer` services.
 
 # Next
