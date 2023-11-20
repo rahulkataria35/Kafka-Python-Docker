@@ -89,32 +89,32 @@ Note that this Docker Compose file assumes the presence of Docker images for Zoo
 > In the root directory, you'll see a file called server_up.sh, where I'll write this command.
 
 
-- docker-compose -f docker-compose.yml up --remove-orphans --build -d
+- `docker-compose -f docker-compose.yml up --remove-orphans --build -d`
 
 so just go to Terminal  and run this .sh file using the below command
 
->I'm writing the commands with sudo because I'm running Ubuntu on my system. You don't need sudo to write it.
+> I'm writing the commands with `sudo` because I'm running Ubuntu on my system. You don't need sudo to write it.
 
-- sudo sh server_up.sh
+- `sudo sh server_up.sh`
 
 The configuration will create a cluster with 4 containers whose image name is :
 
-- zookeeper
-- kafka_server
-- Consumer
-- Producer
+- `zookeeper`
+- `kafka_server`
+- `Consumer`
+- `Producer`
 
 
 > To stop/kill these container, you can simply write a command in the terminal. 
 
-- sudo sh server_down.sh
+- `sudo sh server_down.sh`
 
 > Now we can check that our 4 container is running or not with the help of this command
 
-- sudo docker ps 
+- `sudo docker ps `
 
 > to see the logs of these containers, simply type this command
-- sudo docker logs -f <container_id>
+- `sudo docker logs -f <container_id>`
 
 we can see producer produce the messages from the dummy database and on the consumer terminal window, we can see that it consumes the messages from the Producer and then we insert the records into the Database.
 
