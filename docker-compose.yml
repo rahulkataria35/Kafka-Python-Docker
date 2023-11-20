@@ -7,8 +7,8 @@ services:
      - "2181:2181"
 
   kafka:
-    image: wurstmeister/kafka
-    container_name: kafka_server
+    image: wurstmeister/kafka   # https://github.com/wurstmeister/kafka-docker
+    container_name: kafka_server  
     ports:
      - "9092:9092"
     expose:
@@ -17,12 +17,13 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-      KAFKA_CREATE_TOPICS: "my-topic-rk:1:1, my-topic-2:1:1"
+      KAFKA_CREATE_TOPICS: "my-topic-rk:1:1, my-topic-2:1:1"   #topic_name:partition:replicas
 
   producer:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
+    container_name: Producer
     depends_on:
       - kafka
     restart: on-failure
@@ -33,6 +34,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile.consumer
+    container_name: Consumer
     depends_on:
       - kafka
     restart: on-failure

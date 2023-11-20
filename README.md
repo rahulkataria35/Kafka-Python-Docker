@@ -1,6 +1,7 @@
 # Kafka-Python-Docker
 
-The main objective in this project was to learn how to create an application that sends(Produce) and receives(Consume) a message from Kafka, using Docker and docker-compose tools.
+> The major goal of this project was to learn how to use the Kafka, Python, and Docker tools to develop an application that uses the fake database to transmit and receive data (Produce and Consume), as well as to put data into the database.
+
 
 > Let's start with What is Kafka :
 
@@ -77,51 +78,24 @@ so just go to Terminal  and run this .sh file using the below command
 
 > sudo sh server_up.sh
 
-The configuration will create a cluster with 2 containers whose image name is :
+The configuration will create a cluster with 4 containers whose image name is :
 
 - zookeeper
 - kafka_server
+- Consumer
+- Producer
 
-To stop/kill these container, you can simply write a command. 
 
-> sudo sh server_down.sh
+> To stop/kill these container, you can simply write a command in the terminal. 
 
-- Now we can check that our both container is running or not with the help of this command
+- sudo sh server_down.sh
 
-> sudo docker ps 
+> Now we can check that our 4 container is running or not with the help of this command
 
-- if they are running then copy the container_id of kafka_server, then execute the following command to enter a container
+- sudo docker ps 
 
-> sudo docker exec -it <container_id> /bin/sh
-
-then go to
-
-> cd ./opt/kafka	
-
-# now we create Topics, with the following command
-
-> ./bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic my-topic-rk
-
-This command creates a topic named "test-topic-rk" with a replication factor of 1 and a single partition.
-
-Let's check that, our topic is created or  not, with this command
-
-> ./bin/kafka-topics.sh --list --zookeeper zookeeper:2181
-
-Great....
-now exit from the container, using command
-
-> exit
-
-# Let's start our Producer and Consumer 
-
-> cd app
-
-> python3 producer.py
-
-now open another terminal and run
-
-> python3 consumer.py
+> to see the logs of these containers, simply type this command
+- sudo docker logs -f <container_id>
 
 we can see producer produce the messages from the dummy database and on the consumer terminal window, we can see that it consumes the messages from the Producer and then we insert the records into the Database.
 
