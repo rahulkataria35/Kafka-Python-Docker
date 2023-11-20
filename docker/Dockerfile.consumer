@@ -1,13 +1,16 @@
 FROM python:3.9
+
 LABEL maintainer="Rahul Kataria <rahulkataria3355@gmail.com>"
- 
-RUN apt update && apt install -y default-jre
+
+RUN apt-get update && apt-get install -y default-jre
+
+COPY ./requirements.txt /app/requirements.txt
 WORKDIR /app
-
-
-COPY ./requirements.txt requirements.txt
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY app/consumer.py .
+COPY ./app /app
 
-CMD [ "python", "consumer.py" ]
+EXPOSE 80
+
+CMD ["python", "-u", "consumer.py"]

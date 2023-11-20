@@ -7,10 +7,12 @@ from database import insert_record, create_connection
 conn = create_connection()
 
 kafka_topic = "my-topic-rk"
-kafka_connection = "localhost:9092"
+kafka_connection = "kafka:9092"
 
 def get_kafka_connection():
+
     try:
+        time.sleep(5)
         consumer = KafkaConsumer(
             kafka_topic,
             bootstrap_servers=[kafka_connection],
@@ -20,7 +22,8 @@ def get_kafka_connection():
             max_poll_interval_ms=300000,
         )
         return True, consumer
-    except:
+    except Exception as e :
+        print("Error_______:", e)
         return False, None
 
 

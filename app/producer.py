@@ -12,10 +12,11 @@ conn = create_connection()
 database_data = json.loads(extract_data(conn))
 print("database_data==", type(database_data))
 
-kafka_server = ["localhost:9092"]
+kafka_server = ["kafka:9092"]
 topic = "my-topic-rk"
 
 def get_producer_connection():
+    sleep(5)
     try:
         producer = KafkaProducer(
             bootstrap_servers=kafka_server,
@@ -30,7 +31,8 @@ def get_producer_connection():
 def produce_messages(producer):
     while True:
         for data in database_data:
-            print(data)
+            print('data----', data, type(data))
+            print("topic---", topic)
             producer.send(topic, data)
             producer.flush()
             sleep(3)

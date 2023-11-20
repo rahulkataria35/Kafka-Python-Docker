@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -14,8 +14,30 @@ services:
     expose:
      - "9093"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_CREATE_TOPICS: "my-topic-rk:1:1, my-topic-2:1:1"
+
+  producer:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    depends_on:
+      - kafka
+    restart: on-failure
+    ports:
+      - "9094:80"
+
+  consumer:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.consumer
+    depends_on:
+      - kafka
+    restart: on-failure
+    ports:
+      - "9095:80"
       
     
   # producer_consumer:
@@ -41,17 +63,3 @@ services:
   #     - "9044:80"
   #   working_dir: /app
       
-
-  # producer:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/Dockerfile
-  #   depends_on:
-  #     - kafka
-  
-  # consumer:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/Dockerfile.consumer
-  #   depends_on:
-  #     - kafka
