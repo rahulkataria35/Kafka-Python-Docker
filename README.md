@@ -52,6 +52,7 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 > You will need to install the following package in your system to follow the next steps.
 
 - Docker
+- docker-compose
 
 
 # first look at the docker-compose.yml file
