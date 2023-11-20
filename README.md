@@ -56,10 +56,33 @@ Installing and configuring Kafka on a local machine involves several steps. Here
 
 
 # first look at the docker-compose.yml file
-- This is a docker-compose file for running ZooKeeper and Kafka using the wurstmeister images.
-- The ZooKeeper service is defined with the image "wurstmeister/zookeeper". It has a container name of "zookeeper" and is exposing port 2181 to the host machine.
-- The Kafka service is defined with the image "wurstmeister/kafka". It has a container name of "kafka_server" and is exposing port 9092 to the host machine. Additionally, port 9093 is also exposed within the container. The environment variables "KAFKA_ADVERTISED_HOST_NAME" is set to "localhost" and "KAFKA_ZOOKEEPER_CONNECT" is set to "zookeeper:2181".
-This configuration allows you to run a Kafka cluster with a single ZooKeeper node using Docker.
+This Docker Compose file is used to define and run multiple services and containers within a Docker environment. Let's break down each section:
+
+1. `version: '3.3'`: This indicates the version of the Docker Compose file format being used.
+
+2. `services`: This section defines the different services (containers) that will be created and run within the Docker environment.
+
+- `zookeeper`: This service is based on the `wurstmeister/zookeeper` Docker image, which is an open-source ZooKeeper server.
+  - `image: wurstmeister/zookeeper`: Specifies the Docker image to use for this service.
+  - `container_name: zookeeper`: Sets the name of the container to "zookeeper".
+  - `ports: - "2181:2181"`: Maps the host machine's port 2181 to the container's port 2181, allowing external access to the ZooKeeper server.
+
+- `kafka`: This service is based on the `wurstmeister/kafka` Docker image, which is an Apache Kafka broker.
+  - `image: wurstmeister/kafka`: Specifies the Docker image to use for this service.
+  - `container_name: kafka_server`: Sets the name of the container to "kafka_server".
+  - `ports: - "9092:9092"`: Maps the host machine's port 9092 to the container's port 9092, allowing external access to the Kafka broker.
+  - `expose: - "9093"`: Exposes the container's port 9093 to other services within the same Docker network.
+  - `environment`: Sets environment variables for the Kafka broker.
+    - `KAFKA_ADVERTISED_HOST_NAME: kafka`: Sets the advertised hostname of the Kafka broker to "kafka".
+    - `KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181`: Sets the connection string for ZooKeeper, which is in the format "hostname:port".
+    - `KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'`: Disables automatic topic creation by Kafka.
+    - `KAFKA_CREATE_TOPICS: "my-topic-rk:1:1, my-topic-2:1:1"`: Specifies the creation of two topics with different partition and replica configurations.
+
+- `producer` and `consumer`: These services are built using Dockerfiles located in the current context (specified by `context: .`). They both depend on the `kafka` service and are restarted in case of failure.
+  - `container_name`: Sets the name of the containers.
+  - `ports`: Maps the host machine's ports to the container's ports, allowing access to the services.
+
+Note that this Docker Compose file assumes the presence of Docker images for ZooKeeper and Kafka (`wurstmeister/zookeeper` and `wurstmeister/kafka`, respectively) and Dockerfiles for the `producer` and `consumer` services.
 
 # Next
 > In the root directory, you'll see a file called server_up.sh, where I'll write this command.
