@@ -8,7 +8,9 @@ app = Flask(__name__)
 
 @app.route("/status", methods=['POST', 'GET'])
 def hello():
-    "*******************Healthy****************"
+    '''
+    *******************Healthy****************
+    '''
     return jsonify({"status":"UP"})
 
 if __name__ == "__main__":
