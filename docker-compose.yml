@@ -1,13 +1,13 @@
 version: '3.3'
 services:
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: zookeeper
     container_name: zookeeper
     ports:
      - "2181:2181"
 
   kafka:
-    image: wurstmeister/kafka   # https://github.com/wurstmeister/kafka-docker
+    image: wurstmeister/kafka   # https://github.com/wurstmeister/kafka-docker  to  Add more brokers:docker-compose scale kafka=3
     container_name: kafka_server  
     ports:
      - "9092:9092"
