@@ -2,8 +2,7 @@
 
 > The major goal of this project was to learn how to use the Kafka, Python, and Docker tools to develop an application that uses the fake database to transmit and receive data (Produce and Consume), as well as to put data into the database.
 
-
-> Let's start with What is Kafka :
+- Let's start with What is Kafka :
 
 Kafka is a distributed message streaming platform that uses publish and subscribe mechanism to stream the records.
 
