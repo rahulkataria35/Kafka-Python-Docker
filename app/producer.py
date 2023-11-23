@@ -3,6 +3,8 @@ from datetime import datetime
 from time import sleep
 from random import choice
 from kafka import KafkaProducer
+from kafka.errors import KafkaError
+
 from database import extract_data, create_connection
 
 #create db connection
@@ -30,12 +32,16 @@ def get_producer_connection():
 
 def produce_messages(producer):
     while True:
-        for data in database_data:
-            print('data----', data, type(data))
-            print("topic---", topic)
-            producer.send(topic, data)
-            producer.flush()
-            sleep(3)
+        try:
+            for data in database_data:
+                print('data----', data, type(data))
+                print("topic---", topic)
+                producer.send(topic, data)
+                producer.flush()
+                sleep(3)
+        except Exception as e:
+            print("Something went Wrong: ", e)
+            pass
 
 
 print("Connecting with Kafka_Producer")
