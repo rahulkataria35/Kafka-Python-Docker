@@ -4,7 +4,7 @@
 
 - Let's start with What is Kafka :
 
-Kafka is a distributed message streaming platform that uses publish and subscribe mechanism to stream the records.
+Kafka is a distributed message streaming platform that uses a publish and subscribe mechanism to stream the records.
 
 # The role of Kafka in a microservices architecture.
 
@@ -61,8 +61,8 @@ This Docker Compose file is used to define and run multiple services and contain
 
 2. `services`: This section defines the different services (containers) that will be created and run within the Docker environment.
 
-- `zookeeper`: This service is based on the `wurstmeister/zookeeper` Docker image, which is an open-source ZooKeeper server.
-  - `image: wurstmeister/zookeeper`: Specifies the Docker image to use for this service.
+- `zookeeper`: This service is based on the `zookeeper` Docker image, which is an open-source ZooKeeper server.
+  - `image: zookeeper`: Specifies the Docker image to use for this service.
   - `container_name: zookeeper`: Sets the name of the container to "zookeeper".
   - `ports: - "2181:2181"`: Maps the host machine's port 2181 to the container's port 2181, allowing external access to the ZooKeeper server.
 
