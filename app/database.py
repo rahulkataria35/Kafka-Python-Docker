@@ -42,17 +42,12 @@ def extract_data(conn):
 # Main program
 conn = create_connection()
 
-# Insert records into the database
+# Insert two records into the database manually
 record1 = ('John Doe', 30)
 record2 = ('Jane Smith', 25)
 
 insert_record(conn, record1)
 insert_record(conn, record2)
-
-# Extract data from the database and convert to JSON
-# data = extract_data(conn)
-# json_data = convert_to_json(data)
-# print(data)
 
 # Close the database connection
 conn.close()

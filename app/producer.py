@@ -1,9 +1,6 @@
 import json
-from datetime import datetime
 from time import sleep
-from random import choice
 from kafka import KafkaProducer
-from kafka.errors import KafkaError
 
 from database import extract_data, create_connection
 
