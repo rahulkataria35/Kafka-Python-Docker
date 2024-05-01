@@ -27,15 +27,16 @@ def consume_messages(consumer, conn):
         try:
             output = json.loads(message.value)
             data = (output['name'], output['age'])
-            print("output===========", data)
+            print("consuming_data------", data)
             try:
+                # print("Insert the data again to run the process in loop")
                 insert_record(conn, data)
             except Exception as e:
                 print("Error:", e)
         except Exception as ex:
             print("Error____", ex)
 
-def main():
+def start_consumer():
     print("Connecting with Kafka")
     status, consumer = get_kafka_connection()
     if status:
@@ -46,4 +47,4 @@ def main():
         print("Exiting. Unable to connect with Kafka")
 
 
-print(main())
+print(start_consumer())

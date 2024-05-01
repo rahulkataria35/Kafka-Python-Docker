@@ -31,7 +31,7 @@ def produce_messages(producer):
     while True:
         try:
             for data in database_data:
-                print('data----', data, type(data))
+                print('producing_messages--------', data, type(data))
                 print("topic---", topic)
                 producer.send(topic, data)
                 producer.flush()
@@ -40,13 +40,14 @@ def produce_messages(producer):
             print("Something went Wrong: ", e)
             pass
 
+def start_producer():
+    print("Connecting with Kafka_Producer")
+    status, producer = get_producer_connection()
+    if status:
+        print("Connection Made with kafka_Producer___")
+        produce_messages(producer)
+    else:
+        print("exiting Unable to connection with kafka Producer")
 
-print("Connecting with Kafka_Producer")
-status, producer = get_producer_connection()
-if status:
-    print("Connection Made with kafka_Producer___")
-    produce_messages(producer)
-else:
-    print("exiting Unable to connection with kafka Producer")
-
+print(start_producer())
 

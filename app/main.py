@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/status", methods=['POST', 'GET'])
 def hello():
     '''
-    *******************Healthy****************
+    *******************Health-Check****************
     '''
     return jsonify({"status":"UP"})
 

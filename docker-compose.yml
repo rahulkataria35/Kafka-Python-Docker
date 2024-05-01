@@ -11,8 +11,6 @@ services:
     container_name: kafka_server  
     ports:
      - "9092:9092"
-    expose:
-     - "9093"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
